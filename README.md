@@ -93,6 +93,38 @@ npm run dev
 ```
 *Client runs on http://localhost:5173*
 
+## 🚀 Deployment
+
+### Frontend (Netlify)
+1.  Push your code to GitHub.
+2.  Log in to [Netlify](https://www.netlify.com/).
+3.  Click **"Add new site"** > **"Import from Git"**.
+4.  Select your `nightlight` repository.
+5.  Netlify will detect the `netlify.toml` file and automatically configure settings:
+    -   **Base directory**: `client`
+    -   **Build command**: `npm install && npm run build`
+    -   **Publish directory**: `dist`
+6.  Click **"Deploy nightlight"**.
+
+### Backend (Render)
+1.  Log in to [Render](https://render.com/).
+2.  Click **"New"** > **"Web Service"**.
+3.  Connect your `nightlight` repository.
+4.  Settings:
+    -   **Root Directory**: `server`
+    -   **Build Command**: `npm install`
+    -   **Start Command**: `node index.js`
+5.  **Environment Variables** (Advanced):
+    -   Add `MONGO_URI`, `OPENAI_API_KEY`, and a secret `PORT` (Render sets PORT automatically, but good to have fallback).
+6.  Click **"Create Web Service"**.
+
+### Connecting Frontend to Backend
+Once both are deployed:
+1.  Copy your Render Backend URL (e.g., `https://nightlight-api.onrender.com`).
+2.  In Netlify > Site Settings > Environment Variables, add:
+    -   `VITE_API_URL`: `https://nightlight-api.onrender.com/api`
+3.  Update your frontend code to use this variable (if not already dynamic).
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request for major changes.
